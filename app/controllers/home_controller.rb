@@ -39,6 +39,12 @@ class HomeController < ApplicationController
     redirect_to(matches ? tag_path(CGI.unescape(matches[:tag])) : default_redirect_path)
   end
 
+  def in_kyutech?
+	# Validation of IP address
+	forbidden if !request::remote_ip.match(/(131\.206\..*|localhost.*|127.0.0.1.*)/)
+  end
+
+
   def set_initial_state_json
     serializable_resource = ActiveModelSerializers::SerializableResource.new(InitialStatePresenter.new(initial_state_params), serializer: InitialStateSerializer)
     @initial_state_json   = serializable_resource.to_json

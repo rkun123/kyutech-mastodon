@@ -81,6 +81,19 @@ class ApplicationController < ActionController::Base
   def not_acceptable
     respond_with_error(406)
   end
+  
+  def in_kyutech?
+	# Validation of IP address
+	return if request::remote_ip.match(/(131\.206\..*|localhost.*|127.0.0.1.*|10.0.2.2)/)
+	forbidden
+  end
+    
+  def kyutech_or_authenticate?
+	# Validation for open information
+	return if request::remote_ip.match(/(131\.206\..*|localhost.*|127.0.0.1.*|.*)/) or user_signed_in?
+	forbidden
+  end
+	
 
   def single_user_mode?
     @single_user_mode ||= Rails.configuration.x.single_user_mode && Account.exists?

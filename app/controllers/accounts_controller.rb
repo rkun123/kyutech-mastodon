@@ -6,6 +6,7 @@ class AccountsController < ApplicationController
   include AccountControllerConcern
 
   before_action :set_cache_headers
+  before_action :kyutech_or_authenticate?
 
   def show
     respond_to do |format|
