@@ -9,15 +9,13 @@ class ApplicationController < ActionController::Base
 
   include Localized
   include UserTrackingConcern
-  include SessionTrackingConcern
-
+  include SessionTrackingConcern 
   helper_method :current_account
   helper_method :current_session
   helper_method :current_theme
   helper_method :single_user_mode?
   helper_method :use_seamless_external_login?
-
-  rescue_from ActionController::RoutingError, with: :not_found
+rescue_from ActionController::RoutingError, with: :not_found
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
   rescue_from ActionController::UnknownFormat, with: :not_acceptable
@@ -84,13 +82,13 @@ class ApplicationController < ActionController::Base
   
   def in_kyutech?
 	# Validation of IP address
-	return if request::remote_ip.match(/(131\.206\..*|localhost.*|127.0.0.1.*|10.0.2.2)/)
+	return if request::remote_ip.match(/(131\.206\..*|localhost.*|127.0.0.1.*)/)
 	forbidden
   end
     
   def kyutech_or_authenticate?
 	# Validation for open information
-	return if request::remote_ip.match(/(131\.206\..*|localhost.*|127.0.0.1.*|.*)/) or user_signed_in?
+	return if request::remote_ip.match(/(131\.206\..*|localhost.*|127.0.0.1.*)/) or user_signed_in?
 	forbidden
   end
 	
