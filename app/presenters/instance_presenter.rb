@@ -9,6 +9,7 @@ class InstancePresenter
     :site_extended_description,
     :site_terms,
     :closed_registrations_message,
+    :invalid_ip_registrations_message,
     to: Setting
   )
 
