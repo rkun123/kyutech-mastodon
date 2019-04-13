@@ -6,7 +6,7 @@ class PublicTimelinesController < ApplicationController
   before_action :check_enabled
   before_action :set_body_classes
   before_action :set_instance_presenter
-  before_action :in_kyutech?
+  before_action :kyutech_or_authenticate?
 
   def show
     respond_to do |format|
