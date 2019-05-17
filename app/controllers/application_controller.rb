@@ -61,6 +61,14 @@ rescue_from ActionController::RoutingError, with: :not_found
     ActiveModel::Type::Boolean.new.cast(params[key])
   end
 
+  def not_in_kyutech
+    respond_with_ip("not_in_kyutech")
+  end
+
+  def not_in_kyutech_and_not_logged_in
+    respond_with_ip("not_in_kyutech_and_not_logged_in")
+  end
+
   def forbidden
     respond_with_error(403)
   end
@@ -80,6 +88,23 @@ rescue_from ActionController::RoutingError, with: :not_found
   def not_acceptable
     respond_with_error(406)
   end
+
+  def ip_valid?
+	request::remote_ip.match(/(131\.206\..*|localhost|127.0.0.1)/)
+  end
+  
+  def in_kyutech?
+	# Validation of IP address
+	return if ip_valid?
+	not_in_kyutech
+  end
+    
+  def kyutech_or_authenticate?
+	# Validation for open information
+	return if ip_valid? or user_signed_in?
+	not_in_kyutech_and_not_logged_in
+  end
+	
 
   def single_user_mode?
     @single_user_mode ||= Rails.configuration.x.single_user_mode && Account.exists?
@@ -131,6 +156,17 @@ rescue_from ActionController::RoutingError, with: :not_found
         render "errors/#{error_name || code}", layout: 'error', status: code
       end
     end
+  end
+  
+  def respond_with_ip(error)
+	respond_to do |format|
+	  format.any {head 403}
+
+	  format.html do 
+		set_locale
+		render "errors/#{error}", layout: 'error', status: 403
+	  end
+	end
   end
 
   def render_cached_json(cache_key, **options)

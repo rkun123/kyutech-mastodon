@@ -8,6 +8,7 @@ class DirectoriesController < ApplicationController
   before_action :set_tag, only: :show
   before_action :set_tags
   before_action :set_accounts
+  before_action :kyutech_or_authenticate?
 
   def index
     render :index
