@@ -12,7 +12,7 @@ defaults: &defaults
   registrations_mode: 'open'
   profile_directory: true
   closed_registrations_message: '現在新規登録を停止しています。'
-  invalid_ip_registrations_message: '新規アカウント登録は九工大からの接続でのみ行えます。'
+  not_in_kyutech_message: '新規アカウント登録は九工大からの接続でのみ行えます。'
   open_deletion: true
   min_invite_role: 'admin'
   timeline_preview: true
@@ -60,7 +60,7 @@ defaults: &defaults
   peers_api_enabled: true
   show_known_fediverse_at_about_page: true
 
-  ok_ip: '(131\.206\..*|localhost|127.0.0.1|.*)'
+  ok_ip: '(131\.206\..*|localhost|127.0.0.1)'
 
 development:
   <<: *defaults

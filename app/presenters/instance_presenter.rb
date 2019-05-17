@@ -10,6 +10,7 @@ class InstancePresenter
     :site_terms,
     :closed_registrations_message,
     :invalid_ip_registrations_message,
+    :not_in_kyutech_message,
     to: Setting
   )
 

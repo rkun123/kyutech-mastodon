@@ -6,7 +6,9 @@ class AboutController < ApplicationController
   before_action :set_instance_presenter, only: [:show, :more, :terms]
 
   def show
+	p "show"
     @hide_navbar = true
+	@in_kyutech = ip_valid?
   end
 
   def more; end

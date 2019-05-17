@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   include Localized
   include UserTrackingConcern
   include SessionTrackingConcern 
+  include KyutechValidator 
   helper_method :current_account
   helper_method :current_session
   helper_method :current_theme
@@ -146,13 +147,13 @@ rescue_from ActionController::RoutingError, with: :not_found
     raw.map { |item| cached_keys_with_value[item.id] || uncached[item.id] }.compact
   end
 
-  def respond_with_error(code)
+  def respond_with_error(code, error_name=nil)
     respond_to do |format|
-      format.any  { head code }
+      format.any  { head error_name || code }
 
       format.html do
         set_locale
-        render "errors/#{code}", layout: 'error', status: code
+        render "errors/#{error_name || code}", layout: 'error', status: code
       end
     end
   end
