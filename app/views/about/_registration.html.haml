@@ -26,3 +26,9 @@
         .simple_form__overlay-area__overlay__content.rich-formatting
           .block-icon= fa_icon 'warning'
           = @instance_presenter.closed_registrations_message.html_safe
+
+    - if !@in_kyutech && @instance_presenter.not_in_kyutech_message.present?
+      .simple_form__overlay-area__overlay
+        .simple_form__overlay-area__overlay__content.rich-formatting
+          .block-icon= fa_icon 'warning'
+          = @instance_presenter.not_in_kyutech_message.html_safe

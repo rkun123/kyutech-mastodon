@@ -15,7 +15,6 @@ class StatusesController < ApplicationController
   before_action :set_instance_presenter
   before_action :set_link_headers
   before_action :check_account_suspension
-  before_action :kyutech_or_authenticate?, only: [:show]
   before_action :redirect_to_original, only: [:show]
   before_action :set_referrer_policy_header, only: [:show]
   before_action :set_cache_headers
